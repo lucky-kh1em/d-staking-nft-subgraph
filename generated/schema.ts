@@ -75,13 +75,84 @@ export class ExampleEntity extends Entity {
   }
 }
 
-export class User extends Entity {
+export class Civilian extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
     this.set("address", Value.fromString(""));
-    this.set("civiliansWorking", Value.fromI32Array(new Array(0)));
+    this.set("isWorking", Value.fromBoolean(false));
+    this.set("owner", Value.fromString(""));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Civilian entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Civilian entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Civilian", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Civilian | null {
+    return changetype<Civilian | null>(store.get("Civilian", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value!.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get address(): string {
+    let value = this.get("address");
+    return value!.toString();
+  }
+
+  set address(value: string) {
+    this.set("address", Value.fromString(value));
+  }
+
+  get isWorking(): boolean {
+    let value = this.get("isWorking");
+    return value!.toBoolean();
+  }
+
+  set isWorking(value: boolean) {
+    this.set("isWorking", Value.fromBoolean(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    return value!.toString();
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+}
+
+export class User extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -110,21 +181,20 @@ export class User extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get address(): string {
-    let value = this.get("address");
-    return value!.toString();
+  get civilians(): Array<string> | null {
+    let value = this.get("civilians");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
   }
 
-  set address(value: string) {
-    this.set("address", Value.fromString(value));
-  }
-
-  get civiliansWorking(): Array<i32> {
-    let value = this.get("civiliansWorking");
-    return value!.toI32Array();
-  }
-
-  set civiliansWorking(value: Array<i32>) {
-    this.set("civiliansWorking", Value.fromI32Array(value));
+  set civilians(value: Array<string> | null) {
+    if (!value) {
+      this.unset("civilians");
+    } else {
+      this.set("civilians", Value.fromStringArray(<Array<string>>value));
+    }
   }
 }

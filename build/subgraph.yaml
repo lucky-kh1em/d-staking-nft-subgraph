@@ -1,12 +1,12 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: StakingNFT
     network: rinkeby
     source:
-      address: '0xCA0d182D374184C7a7398BF59fc11be753de267c'
+      address: "0xCA0d182D374184C7a7398BF59fc11be753de267c"
       abi: StakingNFT
     mapping:
       kind: ethereum/events
@@ -21,7 +21,7 @@ dataSources:
         - Withdraw
       abis:
         - name: StakingNFT
-          file: ./abis/StakingNFT.json
+          file: StakingNFT/abis/StakingNFT.json
       eventHandlers:
         - event: Claim(indexed address,indexed uint256,address,uint256)
           handler: handleClaim
@@ -35,4 +35,4 @@ dataSources:
           handler: handleUnpaused
         - event: Withdraw(indexed address,indexed uint256,address)
           handler: handleWithdraw
-      file: ./src/mapping.ts
+      file: StakingNFT/StakingNFT.wasm

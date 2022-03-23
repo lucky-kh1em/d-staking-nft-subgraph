@@ -1,4 +1,4 @@
-import { User } from '../generated/schema';
+import { User, Civilian } from '../generated/schema';
 import {
 	Claim,
 	Deposit,
@@ -62,21 +62,26 @@ export function handleClaim(event: Claim): void {
 export function handleDeposit(event: Deposit): void {
 	// let { owner, tokenId } = event.params;
 
-	let user = User.load(event.params.owner.toString());
-
-	if (!user) {
-		user = new User(event.params.owner.toString());
-	}
-
-	const index = user.civiliansWorking?.findIndex(
-		(civilianId) => civilianId === parseInt(event.params.tokenId.toString())
+	let user = User.load(event.params.owner.toHex());
+	let civilian = Civilian.load(
+		`${event.params.nftAddress.toHex()}-${event.params.tokenId.toHex()}`
 	);
 
-	if (index === -1) {
-		user.civiliansWorking?.push(parseInt(event.params.tokenId.toString()));
+	if (!user) {
+		user = new User(event.params.owner.toHex());
 	}
 
+	if (!civilian) {
+		civilian = new Civilian(`${event.params.nftAddress.toHex()}-${event.params.tokenId.toHex()}`);
+	}
+
+	civilian.isWorking = true;
+	civilian.tokenId = event.params.tokenId;
+	civilian.owner = event.params.owner.toHex();
+	civilian.address = event.params.nftAddress.toHex();
+
 	user.save();
+	civilian.save();
 }
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
@@ -86,15 +91,24 @@ export function handlePaused(event: Paused): void {}
 export function handleUnpaused(event: Unpaused): void {}
 
 export function handleWithdraw(event: Withdraw): void {
-	// const { owner, tokenId } = event.params;
-	// let user = User.load(owner.toString());
-	// if (user) {
-	// 	const index = user.civiliansWorking?.findIndex(
-	// 		(civilianId) => civilianId === parseInt(tokenId.toString())
-	// 	);
-	// 	if (index && index !== -1) {
-	// 		user.civiliansWorking?.splice(index, 1);
-	// 	}
-	// 	user.save();
-	// }
+	let user = User.load(event.params.owner.toHex());
+	let civilian = Civilian.load(
+		`${event.params.nftAddress.toHex()}-${event.params.tokenId.toHex()}`
+	);
+
+	if (!user) {
+		user = new User(event.params.owner.toHex());
+	}
+
+	if (!civilian) {
+		civilian = new Civilian(`${event.params.nftAddress.toHex()}-${event.params.tokenId.toHex()}`);
+	}
+
+	civilian.isWorking = false;
+	civilian.tokenId = event.params.tokenId;
+	civilian.owner = event.params.owner.toHex();
+	civilian.address = event.params.nftAddress.toHex();
+
+	user.save();
+	civilian.save();
 }
