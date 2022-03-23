@@ -1,6 +1,12 @@
 type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-  tokenId: BigInt! # uint256
+	id: ID!
+	count: BigInt!
+	owner: Bytes! # address
+	tokenId: BigInt! # uint256
+}
+
+type User @entity {
+	id: ID!
+	address: ID!
+	civiliansWorking: [Int!]!
 }
