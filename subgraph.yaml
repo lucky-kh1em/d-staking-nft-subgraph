@@ -6,8 +6,9 @@ dataSources:
     name: StakingNFT
     network: rinkeby
     source:
-      address: '0xCA0d182D374184C7a7398BF59fc11be753de267c'
+      address: "0xCA0d182D374184C7a7398BF59fc11be753de267c"
       abi: StakingNFT
+      startBlock: 10377311
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

@@ -27,8 +27,7 @@ export class ExampleEntity extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ExampleEntity entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ExampleEntity must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ExampleEntity", id.toString(), this);
     }
@@ -83,6 +82,8 @@ export class Civilian extends Entity {
     this.set("tokenId", Value.fromBigInt(BigInt.zero()));
     this.set("address", Value.fromString(""));
     this.set("isWorking", Value.fromBoolean(false));
+    this.set("poolRating", Value.fromBigInt(BigInt.zero()));
+    this.set("poolRarity", Value.fromBigInt(BigInt.zero()));
     this.set("owner", Value.fromString(""));
   }
 
@@ -92,8 +93,7 @@ export class Civilian extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Civilian entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Civilian must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Civilian", id.toString(), this);
     }
@@ -139,6 +139,24 @@ export class Civilian extends Entity {
     this.set("isWorking", Value.fromBoolean(value));
   }
 
+  get poolRating(): BigInt {
+    let value = this.get("poolRating");
+    return value!.toBigInt();
+  }
+
+  set poolRating(value: BigInt) {
+    this.set("poolRating", Value.fromBigInt(value));
+  }
+
+  get poolRarity(): BigInt {
+    let value = this.get("poolRarity");
+    return value!.toBigInt();
+  }
+
+  set poolRarity(value: BigInt) {
+    this.set("poolRarity", Value.fromBigInt(value));
+  }
+
   get owner(): string {
     let value = this.get("owner");
     return value!.toString();
@@ -161,8 +179,7 @@ export class User extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save User entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type User must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("User", id.toString(), this);
     }

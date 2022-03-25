@@ -237,10 +237,10 @@
     which "2.0.2"
     yaml "1.9.2"
 
-"@graphprotocol/graph-ts@0.24.1":
-  version "0.24.1"
-  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.24.1.tgz#50961b52b5383f9c5cf5e6e23fa039f24e729ddf"
-  integrity sha512-2vU4m5ZPQIqMlMce/z5vmOtGHRlRmcRhMfemS3NIwxCSxSBGVnX2zb7QBTzzdQKGwsAZdbz6V0okkOtvohELfQ==
+"@graphprotocol/graph-ts@0.25.0":
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.25.0.tgz#74b11effe1d96957004b3f5f0361562ba2b80019"
+  integrity sha512-/R++19dAtqPhd/Bv3l09ubcc8SWrm+akeyYG4yqkg5fk+b5Bm2Bi4Y+CK8B4l3C9mcc2mzJ7s7YisDMmGclqzw==
   dependencies:
     assemblyscript "0.19.10"
 
@@ -287,9 +287,9 @@
   integrity sha512-XOKXa1KIxtNXgASAnwj7cnttJxS4fksBRywK/9LzRV5YxrF80BXZIGeQSuoESQ/VkUj30Ae0+YcuHc15wJCB2g==
 
 "@types/node@*":
-  version "17.0.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.22.tgz#38b6c4b9b2f3ed9f2e376cce42a298fb2375251e"
-  integrity sha512-8FwbVoG4fy+ykY86XCAclKZDORttqE5/s7dyWZKLXTdv3vRy5HozBEinG5IqhvPXXzIZEcTVbuHlQEI6iuwcmw==
+  version "17.0.23"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.23.tgz#3b41a6e643589ac6442bdbd7a4a3ded62f33f7da"
+  integrity sha512-UxDxWn7dl97rKVeVS61vErvw086aCYhDLyvRQZ5Rk65rZKepaFdm53GeqXaKBuOhED4e9uWq34IC3TdSdJJ2Gw==
 
 "@types/node@^10.0.3":
   version "10.17.60"
